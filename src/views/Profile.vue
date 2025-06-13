@@ -172,6 +172,8 @@ async function handleLogout() {
     font-size: 1.1rem;
   }
 
+  
+
   .table-responsive {
     overflow-x: auto;
   }
