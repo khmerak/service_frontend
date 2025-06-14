@@ -30,7 +30,9 @@ export const useAuthStore = defineStore("auth", {
     async fetchUser() {
       if (!this.token) return;
       try {
-        const res = await axios.get("https://a.khmercleaningservice.us/api/users");
+        const res = await axios.get(
+          "https://a.khmercleaningservice.us/api/user"
+        );
         this.user = res.data;
       } catch (error) {
         console.error("Error fetching user:", error);
