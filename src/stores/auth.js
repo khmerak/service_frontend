@@ -1,48 +1,99 @@
-// stores/auth.js
 import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    token: localStorage.getItem("token") || null,
     user: null,
+    token: localStorage.getItem("token") || null, // token if you use token (optional)
+    loading: false,
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.token,
+    isAuthenticated: (state) => !!state.user,
   },
 
   actions: {
-    initialize() {
-      const token = localStorage.getItem("token");
-      if (token) {
-        this.token = token;
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    async initialize() {
+      // Optionally, load user on app start if token exists
+      if (this.token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
+        await this.fetchUser();
       }
     },
 
-    setToken(token) {
-      this.token = token;
-      localStorage.setItem("token", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    async login(credentials) {
+      try {
+        this.loading = true;
+
+        // Step 1: Get CSRF cookie before login (Sanctum requirement)
+        await axios.get(
+          "https://a.khmercleaningservice.us/sanctum/csrf-cookie",
+          {
+            withCredentials: true,
+          }
+        );
+
+        // Step 2: Login (send credentials)
+        const response = await axios.post(
+          "https://a.khmercleaningservice.us/api/login",
+          credentials,
+          { withCredentials: true }
+        );
+
+        // If you receive token from API, save it (optional)
+        if (response.data.token) {
+          this.token = response.data.token;
+          localStorage.setItem("token", this.token);
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${this.token}`;
+        }
+
+        // Step 3: Fetch authenticated user data
+        await this.fetchUser();
+
+        this.loading = false;
+        return true;
+      } catch (error) {
+        this.loading = false;
+        console.error("Login error:", error.response?.data || error.message);
+        throw error;
+      }
     },
 
     async fetchUser() {
-      if (!this.token) return;
       try {
-        const res = await axios.get(
-          "https://a.khmercleaningservice.us/api/user"
+        const response = await axios.get(
+          "https://a.khmercleaningservice.us/api/user",
+          {
+            withCredentials: true, // very important for cookie auth
+            headers: this.token
+              ? { Authorization: `Bearer ${this.token}` }
+              : {},
+          }
         );
-        this.user = res.data;
+        this.user = response.data;
       } catch (error) {
-        console.error("Error fetching user:", error);
-        this.logout(); // ensure cleanup if token fails
+        console.error(
+          "Fetch user error:",
+          error.response?.data || error.message
+        );
+        this.logout();
       }
     },
 
-    logout() {
-      this.token = null;
+    async logout() {
+      try {
+        await axios.post(
+          "https://a.khmercleaningservice.us/api/logout",
+          {},
+          { withCredentials: true }
+        );
+      } catch (error) {
+        console.error("Logout error:", error.response?.data || error.message);
+      }
       this.user = null;
+      this.token = null;
       localStorage.removeItem("token");
       delete axios.defaults.headers.common["Authorization"];
     },
