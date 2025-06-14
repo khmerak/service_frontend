@@ -171,9 +171,6 @@ async function handleLogout() {
   .card-body h5 {
     font-size: 1.1rem;
   }
-
-  
-
   .table-responsive {
     overflow-x: auto;
   }

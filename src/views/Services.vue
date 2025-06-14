@@ -79,7 +79,7 @@ const services = ref([])
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/services')
+    const response = await axios.get('https://a.khmercleaningservice.us/api/services')
     services.value = response.data
   } catch (error) {
     console.error('Failed to fetch services:', error)
