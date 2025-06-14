@@ -116,7 +116,7 @@ const goHome = () => {
 };
 
 const getProductImage = (path) =>
-  path?.startsWith("http") ? path : `http://127.0.0.1:8000/storage/${path}`;
+  path?.startsWith("http") ? path : `https://a.khmercleaningservice.us/storage/${path}`;
 
 // Manage timeout for each item's debounced update
 const quantityTimers = ref({});

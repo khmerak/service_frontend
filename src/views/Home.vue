@@ -44,7 +44,7 @@
             :class="`animate__delay-${index}s`"
           >
             <img
-              :src="`http://127.0.0.1:8000/storage/${item.image}`"
+              :src="`https://a.khmercleaningservice.us/storage/${item.image}`"
               alt="Service Image"
               class="mb-3 object-fit-contain"
               style="width: 200px"
@@ -116,7 +116,7 @@ const services = ref([]);
 
 const fetchServices = async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/get_services");
+    const response = await axios.get("https://a.khmercleaningservice.us/api/get_services");
     services.value = response.data;
   } catch (error) {
     console.error("Failed to fetch services:", error);

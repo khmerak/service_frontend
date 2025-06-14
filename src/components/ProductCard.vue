@@ -51,7 +51,7 @@ const props = defineProps({
 const imageUrl = computed(() => {
   return props.product.image?.startsWith("http")
     ? props.product.image
-    : `http://127.0.0.1:8000/storage/${props.product.image}`;
+    : `https://a.khmercleaningservice.us/storage/${props.product.image}`;
 });
 
 const isVisible = ref(false);

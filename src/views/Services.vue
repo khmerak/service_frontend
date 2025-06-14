@@ -47,7 +47,7 @@
             :class="`animate__delay-${index}s`"
           >
             <img
-              :src="`http://127.0.0.1:8000/storage/${item.image}`"
+              :src="`https://a.khmercleaningservice.us/storage/${item.image}`"
               alt="Service Image"
               class="img-fluid rounded mb-3 mb-md-0 object-fit-contain"
               style="width: 200px"

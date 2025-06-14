@@ -102,8 +102,8 @@ onMounted(async () => {
   isLoading.value = true;
   try {
     const [productRes, categoryRes] = await Promise.all([
-      axios.get("http://127.0.0.1:8000/api/products"),
-      axios.get("http://127.0.0.1:8000/api/categories"),
+      axios.get("https://a.khmercleaningservice.us/api/products"),
+      axios.get("https://a.khmercleaningservice.us/api/categories"),
     ]);
     allProducts.value = productRes.data;
     categories.value = categoryRes.data;

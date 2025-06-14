@@ -127,7 +127,7 @@ async function handleSignUp() {
   errors.value = [];
 
   try {
-    const response = await axios.post("/api/register", form);
+    const response = await axios.post("https://a.khmercleaningservice.us/api/register", form);
     alert(response.data.message);
     // Clear form
     form.name = "";

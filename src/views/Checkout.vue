@@ -137,7 +137,7 @@ const submitOrder = async () => {
     };
 
     const token = localStorage.getItem("token");
-    await axios.post("http://127.0.0.1:8000/api/checkout", payload, {
+    await axios.post("https://a.khmercleaningservice.us/api/checkout", payload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

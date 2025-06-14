@@ -136,7 +136,7 @@ onMounted(async () => {
   loading.value = true;
   error.value = null;
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/orders", {
+    const response = await axios.get("https://a.khmercleaningservice.us/api/orders", {
       headers: {
         Authorization: `Bearer ${authStore.token}`,
       },
