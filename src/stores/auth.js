@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import api from "@/plugins/axios"; // use the instance with correct baseURL
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: null,
-    token: localStorage.getItem("token") || null, // token if you use token (optional)
+    token: localStorage.getItem("token") || null,
     loading: false,
   }),
 
@@ -14,9 +14,8 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
     async initialize() {
-      // Optionally, load user on app start if token exists
       if (this.token) {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
+        api.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
         await this.fetchUser();
       }
     },
@@ -25,31 +24,16 @@ export const useAuthStore = defineStore("auth", {
       try {
         this.loading = true;
 
-        // Step 1: Get CSRF cookie before login (Sanctum requirement)
-        await axios.get(
-          "https://a.khmercleaningservice.us/sanctum/csrf-cookie",
-          {
-            withCredentials: true,
-          }
-        );
+        await api.get("/sanctum/csrf-cookie");
 
-        // Step 2: Login (send credentials)
-        const response = await axios.post(
-          "https://a.khmercleaningservice.us/api/login",
-          credentials,
-          { withCredentials: true }
-        );
+        const response = await api.post("/api/login", credentials);
 
-        // If you receive token from API, save it (optional)
         if (response.data.token) {
           this.token = response.data.token;
           localStorage.setItem("token", this.token);
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${this.token}`;
+          api.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
         }
 
-        // Step 3: Fetch authenticated user data
         await this.fetchUser();
 
         this.loading = false;
@@ -63,39 +47,24 @@ export const useAuthStore = defineStore("auth", {
 
     async fetchUser() {
       try {
-        const response = await axios.get(
-          "https://a.khmercleaningservice.us/api/user",
-          {
-            withCredentials: true, // very important for cookie auth
-            headers: this.token
-              ? { Authorization: `Bearer ${this.token}` }
-              : {},
-          }
-        );
+        const response = await api.get("/api/user");
         this.user = response.data;
       } catch (error) {
-        console.error(
-          "Fetch user error:",
-          error.response?.data || error.message
-        );
+        console.error("Fetch user error:", error.response?.data || error.message);
         this.logout();
       }
     },
 
     async logout() {
       try {
-        await axios.post(
-          "https://a.khmercleaningservice.us/api/logout",
-          {},
-          { withCredentials: true }
-        );
+        await api.post("/api/logout");
       } catch (error) {
         console.error("Logout error:", error.response?.data || error.message);
       }
       this.user = null;
       this.token = null;
       localStorage.removeItem("token");
-      delete axios.defaults.headers.common["Authorization"];
+      delete api.defaults.headers.common["Authorization"];
     },
   },
 });
