@@ -41,7 +41,7 @@ export const useAuthStore = defineStore("auth", {
     throw error;
   }
 }
-
+,
 
     async fetchUser() {
       try {
