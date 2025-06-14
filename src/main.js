@@ -6,7 +6,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
 import axios from "axios";
 
-axios.defaults.baseURL = "https://a.khmercleaningservice.us/api"; // Adjust to your Laravel server URL
+const axiosInstance = axios.create({
+  baseURL: 'https://a.khmercleaningservice.us/api',
+  headers: {
+    Authorization: `Bearer ${this.token}`,
+  },
+}); // Adjust to your Laravel server URL
 const app = createApp(App)
 
 app.use(createPinia());
