@@ -5,7 +5,7 @@
       style="min-height: 70vh"
     >
       <div class="w-100 w-md-50 px-3 px-md-5 mb-4 mb-md-0 fade-in">
-        <h1 class="mb-4 typewriter">Welcome to Our Cleaning Services</h1>
+        <h1 class="mb-4 typewriter">Welcome to Our Cleaning Services new</h1>
         <p class="mb-5">
           We provide top-notch cleaning services tailored to your needs. Whether
           it's residential or commercial, our team is dedicated to delivering a
