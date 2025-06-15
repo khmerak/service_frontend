@@ -1,8 +1,12 @@
-import axios from 'axios';
+// src/plugins/axios.js
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://a.khmercleaningservice.us', // ✅ Important!
-  withCredentials: true, // 🔒 Required for Sanctum (CSRF + cookies)
+  baseURL: "https://a.khmercleaningservice.us/", // or your backend URL
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
 });
 
 export default api;
