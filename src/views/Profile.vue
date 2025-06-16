@@ -23,7 +23,7 @@
               <strong>Phone:</strong> {{ authStore.user?.phone || "N/A" }}
             </p>
             <div class="d-flex align-items-center justify-content-center-center">
-              <button @click="goHome" class="btn btn-primary mx-4">
+              <button @click="gotoHome" class="btn btn-primary mx-4">
               Back
               </button>
               <button @click="handleLogout" class="btn btn-outline-danger mx-3">
@@ -150,10 +150,15 @@ onMounted(async () => {
   }
 });
 
-async function handleLogout() {
+const gotoHome = () => {
+  router.push("/");
+};
+
+const handleLogout = async () => {
   await authStore.logout();
   router.push("/");
-}
+};
+
 </script>
 
 <style scoped>
