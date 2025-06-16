@@ -75,10 +75,15 @@ onMounted(() => {
 
 <style scoped>
 .nav-link {
-  font-size: 12px;
+  font-size:1.2rem;
   color: #333;
   transition: color 0.3s ease;
   text-decoration: none;
+}
+@media (max-width: 768px) {
+  .nav-link {
+  font-size:0.8rem;
+}
 }
 .nav-link:hover,
 .nav-link.active {
