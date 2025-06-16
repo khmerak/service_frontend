@@ -2,7 +2,14 @@
   <div class="container my-5">
     <div
       id="loadingSpinner"
-      style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;"
+      style="
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+      "
     >
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -25,51 +32,56 @@
     </div>
 
     <div v-else>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in cartStore.items" :key="item.id">
-            <td>
-              <img
-                :src="getProductImage(item.product.image)"
-                alt="Product"
-                width="50"
-                class="me-2"
-              />
-              {{ item.product.product_name }}
-            </td>
-            <td>${{ parseFloat(item.product.price).toFixed(2) }}</td>
-            <td>
-              <input
-                type="number"
-                v-model.number="item.quantity"
-                @input="debounceQuantityUpdate(item)"
-                min="1"
-              />
-              <span v-if="cartStore.isUpdating(item.id)" class="text-muted ms-2">
-                Updating...
-              </span>
-            </td>
-            <td>${{ (item.quantity * item.product.price).toFixed(2) }}</td>
-            <td>
-              <button
-                class="btn btn-danger btn-sm"
-                @click="confirmRemove(item.id, item.product.product_name)"
-              >
-                Remove
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in cartStore.items" :key="item.id">
+              <td>
+                <img
+                  :src="getProductImage(item.product.image)"
+                  alt="Product"
+                  width="50"
+                  class="me-2"
+                />
+                {{ item.product.product_name }}
+              </td>
+              <td>${{ parseFloat(item.product.price).toFixed(2) }}</td>
+              <td>
+                <input
+                  type="number"
+                  v-model.number="item.quantity"
+                  @input="debounceQuantityUpdate(item)"
+                  min="1"
+                />
+                <span
+                  v-if="cartStore.isUpdating(item.id)"
+                  class="text-muted ms-2"
+                >
+                  Updating...
+                </span>
+              </td>
+              <td>${{ (item.quantity * item.product.price).toFixed(2) }}</td>
+              <td>
+                <button
+                  class="btn btn-danger btn-sm"
+                  @click="confirmRemove(item.id, item.product.product_name)"
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="text-end">
         <h4>Total: ${{ totalPrice.toFixed(2) }}</h4>
@@ -162,4 +174,21 @@ const totalPrice = computed(() => cartStore.totalPrice);
   opacity: 0.6;
   cursor: not-allowed;
 }
+@media (max-width: 576px) {
+  .table th,
+  .table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  img {
+    width: 40px;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
 </style>

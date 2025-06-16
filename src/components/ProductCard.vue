@@ -17,7 +17,7 @@
 
     <div class="d-flex justify-content-between align-items-center mt-3">
       <button
-        class="btn btn-primary"
+        class="btn btn-primary btn-sm w-52"
         @click="addToCart"
         :disabled="cartStore.isAdding(product.id)"
       >
@@ -83,3 +83,10 @@ const addToCart = async () => {
   }
 };
 </script>
+<style scoped>
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+</style>
