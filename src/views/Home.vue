@@ -6,7 +6,7 @@
     >
       <div class="w-100 w-md-50 px-3 px-md-5 mb-4 mb-md-0 fade-in">
         <h1 class="mb-4 typewriter">Welcome to Our Cleaning Services</h1>
-        <p class="mb-5">
+        <p class="mb-5 e">
           We provide top-notch cleaning services tailored to your needs. Whether
           it's residential or commercial, our team is dedicated to delivering a
           spotless environment for you.
@@ -247,6 +247,9 @@ const goToService = (id) => {
 @media (max-width: 768px) {
   .typewriter {
     font-size: 1.1rem; /* smaller for phones */
+  }
+  .e{
+    font-size: 0.7rem;
   }
 }
 </style>
