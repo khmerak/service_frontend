@@ -75,7 +75,7 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
 
 const router = useRouter();
 const isLoading = ref(false);
@@ -85,11 +85,10 @@ const form = reactive({
   email: "",
   password: "",
 });
-// In your SignIn.vue component
-import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
 
 async function handleSignIn() {
-  const authStore = useAuthStore();
   isLoading.value = true;
   errors.value = [];
 
@@ -105,14 +104,8 @@ async function handleSignIn() {
   }
 
   try {
-    console.log("Sending payload:", form);
-    const response = await axios.post("https://a.khmercleaningservice.us/api/login", form, {
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log("Response:", response.data);
-    authStore.setToken(response.data.token);
-    await authStore.fetchUser(); // Fetch user data after login
-    alert(response.data.message);
+    await authStore.login(form);
+    alert("Signed in successfully!");
     form.email = "";
     form.password = "";
     router.push("/");

@@ -21,33 +21,35 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async login(credentials) {
-  try {
-    this.loading = true;
+      try {
+        this.loading = true;
 
-    const response = await api.post("/api/login", credentials);
+        const response = await api.post("/api/login", credentials);
 
-    if (response.data.token) {
-      this.token = response.data.token;
-      localStorage.setItem("token", this.token);
-      api.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
-    }
+        if (response.data.token) {
+          this.token = response.data.token;
+          localStorage.setItem("token", this.token);
+          api.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
+        }
 
-    await this.fetchUser();
-    this.loading = false;
-    return true;
-  } catch (error) {
-    this.loading = false;
-    console.error("Login error:", error.response?.data || error.message);
-    throw error;
-  }
-}
-,
+        await this.fetchUser();
+        this.loading = false;
+        return true;
+      } catch (error) {
+        this.loading = false;
+        console.error("Login error:", error.response?.data || error.message);
+        throw error;
+      }
+    },
     async fetchUser() {
       try {
-        const response = await api.get("/api/users");
+        const response = await api.get("/api/user");
         this.user = response.data;
       } catch (error) {
-        console.error("Fetch user error:", error.response?.data || error.message);
+        console.error(
+          "Fetch user error:",
+          error.response?.data || error.message
+        );
         this.logout();
       }
     },
