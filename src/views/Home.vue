@@ -246,7 +246,7 @@ const goToService = (id) => {
 }
 @media (max-width: 768px) {
   .typewriter {
-    font-size: 1.3rem; /* smaller for phones */
+    font-size: 1.1rem; /* smaller for phones */
   }
 }
 </style>
