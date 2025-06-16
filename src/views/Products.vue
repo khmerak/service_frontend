@@ -57,7 +57,7 @@
 
       <div
         v-else
-        class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center"
+        class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center border-2"
       >
         <div
           v-for="(product, index) in filteredProducts"
