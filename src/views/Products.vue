@@ -57,12 +57,12 @@
 
       <div
         v-else
-        class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center border-2"
+        class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center gap-2"
       >
         <div
           v-for="(product, index) in filteredProducts"
           :key="index"
-          class="col"
+          class="col border rounded shadow-sm"
         >
           <ProductCard :product="product" />
         </div>
