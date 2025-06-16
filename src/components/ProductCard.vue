@@ -17,7 +17,7 @@
 
     <div class="d-flex justify-content-between align-items-center mt-3">
       <button
-        class="btn btn-primary btn-sm w-52"
+        class="btn btn-primary btn-sm w-52 my-3"
         @click="addToCart"
         :disabled="cartStore.isAdding(product.id)"
       >
