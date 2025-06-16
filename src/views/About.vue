@@ -2,32 +2,46 @@
   <MainLayout>
     <main class="position-relative">
       <!-- Hero Section -->
-      <div class="position-relative hero-section overflow-hidden">
-        <img src="/images/zarla.png" alt="about us" class="img-fluid w-100 animated-image" />
-        <h1 class="position-absolute text-white fw-light fade-in"
-            style="top: 13%; left: 10%; font-size: 4rem; letter-spacing: 10px;">
-          ABOUT <span class="text-primary fw-bold">US</span>
-        </h1>
-        <p class="position-absolute text-white fw-medium fade-in delay-1"
-           style="top: 28%; left: 9%; font-size: 1.25rem;">
-          From dust to sparkle, we’ve got every inch covered—so you can enjoy a fresh, clean start.
-        </p>
+      <div class="position-relative hero-section overflow-hidden o">
+        <img
+          src="/images/zarla.png"
+          alt="about us"
+          class="img-fluid w-100 animated-image"
+        />
+
+        <div class="hero-text position-absolute text-white px-3 px-md-5">
+          <h1 class="fw-light fade-in text-center text-md-start">
+            ABOUT <span class="text-primary fw-bold">US</span>
+          </h1>
+          <p class="fw-medium fade-in delay-1 text-center text-md-start">
+            From dust to sparkle, we’ve got every inch covered—so you can enjoy
+            a fresh, clean start.
+          </p>
+        </div>
       </div>
 
       <!-- Info Section -->
       <div class="container my-5">
         <div class="row align-items-center">
           <div class="col-md-6 fade-in">
-            <h3 class="text-uppercase text-secondary">Highest Standards to a Growing Demand</h3>
-            <h1 class="mb-4">Because <span class="text-primary">Quality is necessary</span></h1>
+            <h3 class="text-uppercase text-secondary">
+              Highest Standards to a Growing Demand
+            </h3>
+            <h1 class="mb-4">
+              Because <span class="text-primary">Quality is necessary</span>
+            </h1>
             <p>
-              Cambodia saw strong, uninterrupted growth for most of the past two decades. Booming Real Estate sector
-              led to a high demand for related services such as cleaning, pest or termite control, & landscaping.
+              Cambodia saw strong, uninterrupted growth for most of the past two
+              decades. Booming Real Estate sector led to a high demand for
+              related services such as cleaning, pest or termite control, &
+              landscaping.
             </p>
             <p>
-              Our company was established to dedicate our services to our clients, from property developers to facility
-              managers. Our passion for excellence leads us to continuously invest in improving our internal processes,
-              our employees and our relationship with every single business we serve.
+              Our company was established to dedicate our services to our
+              clients, from property developers to facility managers. Our
+              passion for excellence leads us to continuously invest in
+              improving our internal processes, our employees and our
+              relationship with every single business we serve.
             </p>
             <a href="#" class="btn btn-primary mt-3">Check Out Our Services</a>
           </div>
@@ -42,8 +56,8 @@
         <div class="container">
           <h1 class="mb-3">Why House Cleaning Service in Cambodia?</h1>
           <p class="fw-medium">
-            Our best features to be the right solution for your commercial cleaning, gardening, security,
-            pest & termite control needs.
+            Our best features to be the right solution for your commercial
+            cleaning, gardening, security, pest & termite control needs.
           </p>
         </div>
       </section>
@@ -58,7 +72,9 @@
           :key="index"
           :class="`scale-in delay-${index}`"
         >
-          <div class="card h-100 text-center p-4 bg-primary text-white shadow-sm">
+          <div
+            class="card h-100 text-center p-4 bg-primary text-white shadow-sm"
+          >
             <img
               :src="feature.image"
               class="mx-auto mb-3"
@@ -75,7 +91,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 import MainLayout from "../layouts/MainLayout.vue";
 
 const features = [
@@ -179,5 +195,48 @@ onMounted(() => {
 }
 .delay-4 {
   transition-delay: 1.6s;
+}
+.hero-section {
+  height: auto;
+}
+
+.hero-text {
+  top: 20%;
+  left: 0;
+  right: 0;
+}
+
+@media (min-width: 768px) {
+  .hero-text {
+    top: 10%;
+    left: 10%;
+    text-align: left;
+  }
+
+  .hero-text h1 {
+    font-size: 4rem;
+    letter-spacing: 10px;
+  }
+
+  .hero-text p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-text {
+    top: 10%;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+  }
+
+  .hero-text p {
+    font-size: 0.6rem;
+    margin-top: 1rem;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-sm bg-white py-3 px-4">
+    <nav class="navbar navbar-expand-sm bg-white py-3 px-4 mb-4">
       <div class="container-sm d-flex align-items-center justify-content-between">
         <!-- Logo -->
         <router-link to="/" class="navbar-brand">
@@ -75,7 +75,7 @@ onMounted(() => {
 
 <style scoped>
 .nav-link {
-  font-size: 18px;
+  font-size: 12px;
   color: #333;
   transition: color 0.3s ease;
   text-decoration: none;
