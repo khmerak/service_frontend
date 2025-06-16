@@ -2,14 +2,7 @@
   <div class="container my-5">
     <div
       id="loadingSpinner"
-      style="
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 9999;
-      "
+      style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;"
     >
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -61,10 +54,7 @@
                 @input="debounceQuantityUpdate(item)"
                 min="1"
               />
-              <span
-                v-if="cartStore.isUpdating(item.id)"
-                class="text-muted ms-2"
-              >
+              <span v-if="cartStore.isUpdating(item.id)" class="text-muted ms-2">
                 Updating...
               </span>
             </td>
@@ -99,28 +89,40 @@
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cart";
+import { useAuthStore } from "@/stores/auth";
 
 const cartStore = useCartStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
-const gotoCheckout = () => {
-  router.push("/checkout"); // or the route name if using named routes
-};
-// Load cart on mount
-onMounted(() => {
-  cartStore.fetchItems();
-});
-
-const goHome = () => {
-  window.location.href = "/products";
-};
-
-const getProductImage = (path) =>
-  path?.startsWith("http") ? path : `https://a.khmercleaningservice.us/storage/${path}`;
-
-// Manage timeout for each item's debounced update
 const quantityTimers = ref({});
 
+// Go to Checkout
+const gotoCheckout = () => {
+  router.push("/checkout");
+};
+
+// Return to Home
+const goHome = () => {
+  router.push("/products");
+};
+
+// Get Product Image
+const getProductImage = (path) =>
+  path?.startsWith("http")
+    ? path
+    : `https://a.khmercleaningservice.us/storage/${path}`;
+
+// Fetch cart on mount
+onMounted(() => {
+  if (!authStore.token) {
+    router.push("/signin");
+  } else {
+    cartStore.fetchItems();
+  }
+});
+
+// Debounce quantity update
 function debounceQuantityUpdate(item) {
   if (quantityTimers.value[item.id]) {
     clearTimeout(quantityTimers.value[item.id]);
@@ -130,6 +132,7 @@ function debounceQuantityUpdate(item) {
   }, 500);
 }
 
+// Remove item
 const removeFromCart = async (id) => {
   try {
     await cartStore.removeItem(id);
@@ -140,12 +143,14 @@ const removeFromCart = async (id) => {
   }
 };
 
+// Confirm remove
 const confirmRemove = (id, name) => {
   if (confirm(`Are you sure you want to remove "${name}" from the cart?`)) {
     removeFromCart(id);
   }
 };
 
+// Total price
 const totalPrice = computed(() => cartStore.totalPrice);
 </script>
 
