@@ -19,7 +19,7 @@ header {
   margin-bottom: -60px;
 }
 main, footer {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 </style>
